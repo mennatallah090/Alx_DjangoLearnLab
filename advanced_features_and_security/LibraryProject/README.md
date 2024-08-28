@@ -1,1 +1,2 @@
-TBD
+Readme: 
+First Django project
