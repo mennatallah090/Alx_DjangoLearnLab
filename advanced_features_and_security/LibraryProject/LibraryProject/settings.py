@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(a4csuf)m8ee!u-h9+y=&wn#(o!a8dcm&60dxej)(hofr_o-@r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookshelf',
 ]
-# settings.py
+
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
 MIDDLEWARE = [
@@ -50,8 +50,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
-
+# CSP settings
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'", 'https://fonts.googleapis.com')
+CSP_FONT_SRC = ("'self'", 'https://fonts.gstatic.com')
+CSP_SCRIPT_SRC = ("'self'",)
+CSP_IMG_SRC = ("'self'", 'data:',)
 ROOT_URLCONF = 'LibraryProject.urls'
 
 TEMPLATES = [
@@ -126,3 +132,29 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
 ]
+
+# settings.py
+
+
+
+
+# SECURITY WARNING: Don't run with debug turned on in production!
+DEBUG = False
+
+# Ensure this is set to the domain(s) where your app is hosted
+ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com']
+
+# Security headers
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'  # Prevents the site from being framed
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Cookies security
+CSRF_COOKIE_SECURE = True  # Ensures that CSRF cookies are only sent over HTTPS
+SESSION_COOKIE_SECURE = True  # Ensures that session cookies are only sent over HTTPS
+
+# Additional security settings
+SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS
+SECURE_HSTS_SECONDS = 31536000  # HTTP Strict Transport Security (HSTS) header
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
