@@ -35,7 +35,9 @@ def add_or_edit_book(request, book_id=None):
 
     return render(request, 'bookshelf/book_form.html', {'form': form})
 
-
+def example_view(request):
+    form = ExampleForm()
+    return render(request, 'bookshelf/book_form.html', {'form': form})
 
 @permission_required('users.can_view', raise_exception=True)
 def document_list(request):
