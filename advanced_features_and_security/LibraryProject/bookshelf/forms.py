@@ -11,3 +11,8 @@ class BookForm(forms.ModelForm):
     class Meta:
         model = Book  # Assuming you have a Book model
         fields = ['title', 'author', 'published_date', 'isbn']
+# LibraryProject/bookshelf/forms.py
+
+
+class ExampleForm(forms.Form):
+    example_field = forms.CharField(max_length=100, label='Example Field')
