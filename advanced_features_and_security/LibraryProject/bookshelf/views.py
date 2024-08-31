@@ -5,8 +5,8 @@ from .models import Document
 from .forms import DocumentForm
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Book
-from .forms import BookForm, BookSearchForm,ExampleForm
-
+from .forms import BookForm, BookSearchForm
+from .forms import ExampleForm
 def search_books(request):
     form = BookSearchForm(request.GET or None)
     books = []
