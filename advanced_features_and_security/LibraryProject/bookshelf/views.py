@@ -3,7 +3,19 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import permission_required
 from .models import Document
 from .forms import DocumentForm
+from django.shortcuts import render
+from .models import Book
+from .forms import BookSearchForm
 
+def search_books(request):
+    form = BookSearchForm(request.GET or None)
+    books = []
+    
+    if form.is_valid():
+        search_query = form.cleaned_data.get('search_query')
+        books = Book.objects.filter(title__icontains=search_query)
+    
+    return render(request, 'bookshelf/book_list.html', {'form': form, 'books': books})
 @permission_required('users.can_view', raise_exception=True)
 def document_list(request):
     documents = Document.objects.all()
