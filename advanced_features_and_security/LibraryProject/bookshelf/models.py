@@ -46,3 +46,27 @@ class Document(models.Model):
 
     def __str__(self):
         return self.title
+
+
+# LibraryProject/bookshelf/models.py
+
+from django.db import models
+from django.conf import settings
+
+class Book(models.Model):
+    title = models.CharField(max_length=200)
+    author = models.CharField(max_length=100)
+    published_date = models.DateField()
+    isbn = models.CharField(max_length=13, unique=True)
+    added_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        permissions = [
+            ("can_view_books", "Can view books"),
+            ("can_add_books", "Can add books"),
+            ("can_edit_books", "Can edit books"),
+            ("can_delete_books", "Can delete books"),
+        ]

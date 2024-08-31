@@ -1,0 +1,17 @@
+<!-- LibraryProject/bookshelf/templates/bookshelf/book_list.html -->
+
+<h1>Book List</h1>
+
+<form method="get" action="{% url 'search_books' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Search</button>
+</form>
+
+<ul>
+    {% for book in books %}
+        <li>{{ book.title }} by {{ book.author }} - ISBN: {{ book.isbn }}</li>
+    {% empty %}
+        <li>No books found.</li>
+    {% endfor %}
+</ul>
