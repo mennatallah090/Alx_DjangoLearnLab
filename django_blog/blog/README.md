@@ -144,3 +144,19 @@ Here’s an example of the URL structure for managing comments:
 ### Notes
 - Ensure you are logged in to add, edit, or delete comments.
 - Comments are displayed in chronological order with the newest comments at the end of the list.
+
+
+## Tagging and Search Functionality
+
+### Tagging Posts
+- **Add Tags**: When creating or editing a post, use the checkbox list to select or add tags.
+- **View Tags**: Tags are displayed on the post detail page and link to pages showing all posts with that tag.
+
+### Searching Posts
+- **Search Bar**: Located on the blog's main page and in the header of all pages.
+- **Search Function**: Enter keywords to find posts by title, content, or tags.
+- **Search Results**: Results are displayed on a dedicated search results page.
+
+### URL Patterns
+- **Tags**: `/tags/<tag_name>/` - Shows posts associated with a specific tag.
+- **Search**: `/search/` - Shows posts matching the search query.
