@@ -90,3 +90,57 @@
 
 - **Create:** Only authenticated users can create posts.
 - **Edit/Delete:** Only the author of a post can edit or delete it.
+
+
+## Comment System
+
+### Overview
+The comment system allows users to engage with blog posts by adding, editing, and deleting comments. This feature fosters community interaction and discussion on individual blog posts.
+
+### Features
+1. **Add Comments**: Authenticated users can add comments to any blog post.
+2. **Edit Comments**: Comment authors can edit their comments.
+3. **Delete Comments**: Comment authors can delete their comments.
+4. **View Comments**: All users can view comments associated with a blog post.
+
+### Usage
+**Adding a Comment**
+- Navigate to the Blog Post
+- Click "Add Comment"
+- Fill in the Comment Form
+- Submit
+
+**Editing a Comment**
+- Locate Your Comment
+- Click "Edit"
+- Update Your Comment
+- Save Changes
+
+**Deleting a Comment**
+- Find Your Comment
+- Click "Delete"
+- Confirm Deletion
+
+### Permissions
+- **Adding Comments**: Any authenticated user can add comments.
+- **Editing Comments**: Only the author of a comment can edit it.
+- **Deleting Comments**: Only the author of a comment can delete it.
+
+### URL Patterns
+- **Add Comment**: `/posts/<int:post_id>/comments/new/`
+- **Edit Comment**: `/comments/<int:comment_id>/edit/`
+- **Delete Comment**: `/comments/<int:comment_id>/delete/`
+
+### Error Handling
+- **Unauthorized Actions**: Users attempting to edit or delete comments they did not author will be redirected to the blog post page.
+- **Form Validation**: Invalid form submissions will show appropriate error messages.
+
+### Example
+Here’s an example of the URL structure for managing comments:
+- **Add Comment**: `/posts/1/comments/new/` (for post ID 1)
+- **Edit Comment**: `/comments/5/edit/` (for comment ID 5)
+- **Delete Comment**: `/comments/5/delete/` (for comment ID 5)
+
+### Notes
+- Ensure you are logged in to add, edit, or delete comments.
+- Comments are displayed in chronological order with the newest comments at the end of the list.
