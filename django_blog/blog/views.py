@@ -152,7 +152,7 @@ def search(request):
         posts = Post.objects.none()
     return render(request, 'blog/search_results.html', {'posts': posts, 'query': query})
 
-def posts_by_tag(request, tag_name):
+def PostByTagListView(request, tag_name):
     tag = Tag.objects.get(name=tag_name)
     posts = tag.posts.all()
     return render(request, 'blog/tagged_posts.html', {'posts': posts, 'tag': tag})
