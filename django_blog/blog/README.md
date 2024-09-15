@@ -54,3 +54,39 @@
 1. **Run the Development Server:**
    ```bash
    python manage.py runserver
+
+
+
+# Blog Post Management
+
+## CRUD Operations
+
+### List Posts
+- **URL:** `/posts/`
+- **Description:** Displays a list of all blog posts.
+
+### View Post Details
+- **URL:** `/posts/<id>/`
+- **Description:** Shows details of a specific blog post.
+
+### Create Post
+- **URL:** `/posts/new/`
+- **Description:** Allows authenticated users to create a new blog post.
+
+### Edit Post
+- **URL:** `/posts/<id>/edit/`
+- **Description:** Allows authors to edit their posts.
+
+### Delete Post
+- **URL:** `/posts/<id>/delete/`
+- **Description:** Allows authors to delete their posts.
+
+## Testing
+
+- Test CRUD operations with valid and invalid data.
+- Ensure proper access control and permissions are enforced.
+
+## Permissions
+
+- **Create:** Only authenticated users can create posts.
+- **Edit/Delete:** Only the author of a post can edit or delete it.
