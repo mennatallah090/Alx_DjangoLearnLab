@@ -23,14 +23,12 @@ class ProfileForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
-    tags = forms.ModelMultipleChoiceField(
-        queryset=Tag.objects.all(),
-        required=False,
-        widget=forms.CheckboxSelectMultiple
-    )
     class Meta:
         model = Post
         fields = ['title', 'content','tags']
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['tags'].widget.attrs.update({'placeholder': 'Enter tags separated by commas'})
         
 class CommentForm(forms.ModelForm):
     class Meta:

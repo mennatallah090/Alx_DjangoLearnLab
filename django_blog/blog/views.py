@@ -9,8 +9,9 @@ from django.contrib import messages
 from django.views.generic import ListView,DetailView
 from django.views.generic.edit import CreateView,UpdateView,DeleteView
 from .forms import CustomUserCreationForm,ProfileForm,CommentForm
-from .models import Post, Comment,Tag
+from .models import Post, Comment
 from django.db.models import Q
+from taggit.models import Tag
 
 
 # from django.views.generic import DetailView, UpdateView, DeleteView, CreateView
@@ -150,7 +151,8 @@ def search(request):
     else:
         posts = Post.objects.none()
     return render(request, 'blog/search_results.html', {'posts': posts, 'query': query})
+
 def posts_by_tag(request, tag_name):
-    tag = get_object_or_404(Tag, name=tag_name)
+    tag = Tag.objects.get(name=tag_name)
     posts = tag.posts.all()
     return render(request, 'blog/tagged_posts.html', {'posts': posts, 'tag': tag})
