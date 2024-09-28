@@ -54,9 +54,9 @@ class LikePost(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, pk):
-        post = get_object_or_404(Post, pk=pk)  # Use get_object_or_404
+        post = generics.get_object_or_404(Post, pk=pk)  # Use get_object_or_404
         like, created = Like.objects.get_or_create(user=request.user, post=post)
-
+        
         if created:
             # Create a notification
             Notification.objects.create(
@@ -72,7 +72,7 @@ class UnlikePost(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, pk):
-        post = get_object_or_404(Post, pk=pk)  # Use get_object_or_404
+        post =generics.get_object_or_404(Post, pk=pk)  # Use get_object_or_404
         try:
             like = Like.objects.get(user=request.user, post=post)
             like.delete()
