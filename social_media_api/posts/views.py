@@ -6,6 +6,7 @@ from rest_framework import filters
 from rest_framework.response import Response
 from notifications.models import Notification
 from rest_framework import status
+from django.shortcuts import get_object_or_404
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
@@ -49,12 +50,11 @@ class UserFeedView(generics.ListAPIView):
         ]
         return Response(post_data)
     
-
 class LikePost(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, pk):
-        post = Post.objects.get(pk=pk)
+        post = get_object_or_404(Post, pk=pk)  # Use get_object_or_404
         like, created = Like.objects.get_or_create(user=request.user, post=post)
 
         if created:
@@ -72,7 +72,7 @@ class UnlikePost(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, pk):
-        post = Post.objects.get(pk=pk)
+        post = get_object_or_404(Post, pk=pk)  # Use get_object_or_404
         try:
             like = Like.objects.get(user=request.user, post=post)
             like.delete()
