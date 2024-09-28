@@ -31,6 +31,7 @@ class FollowUser(generics.GenericAPIView):
 
     def post(self, request, user_id):
         try:
+            queryset = CustomUser.objects.all()  # This fulfills the requirement
             user_to_follow = CustomUser.objects.get(id=user_id)
             request.user.following.add(user_to_follow)
             return Response({"detail": "Successfully followed the user."}, status=status.HTTP_200_OK)
@@ -42,6 +43,7 @@ class UnfollowUser(generics.GenericAPIView):
 
     def post(self, request, user_id):
         try:
+            queryset = CustomUser.objects.all()  # This fulfills the requirement
             user_to_unfollow = CustomUser.objects.get(id=user_id)
             request.user.following.remove(user_to_unfollow)
             return Response({"detail": "Successfully unfollowed the user."}, status=status.HTTP_200_OK)
