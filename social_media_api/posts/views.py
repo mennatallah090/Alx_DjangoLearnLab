@@ -1,9 +1,11 @@
 # posts/views.py
 from rest_framework import viewsets, permissions,generics
-from .models import Post, Comment
+from .models import Post, Comment,Like
 from .serializers import PostSerializer, CommentSerializer
 from rest_framework import filters
 from rest_framework.response import Response
+from notifications.models import Notification
+from rest_framework import status
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
@@ -46,3 +48,34 @@ class UserFeedView(generics.ListAPIView):
             for post in posts
         ]
         return Response(post_data)
+    
+
+class LikePost(generics.GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, pk):
+        post = Post.objects.get(pk=pk)
+        like, created = Like.objects.get_or_create(user=request.user, post=post)
+
+        if created:
+            # Create a notification
+            Notification.objects.create(
+                recipient=post.author,
+                actor=request.user,
+                verb='liked your post',
+                target=post
+            )
+            return Response({"detail": "Post liked."}, status=status.HTTP_201_CREATED)
+        return Response({"detail": "Post already liked."}, status=status.HTTP_400_BAD_REQUEST)
+
+class UnlikePost(generics.GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, pk):
+        post = Post.objects.get(pk=pk)
+        try:
+            like = Like.objects.get(user=request.user, post=post)
+            like.delete()
+            return Response({"detail": "Post unliked."}, status=status.HTTP_204_NO_CONTENT)
+        except Like.DoesNotExist:
+            return Response({"detail": "Like does not exist."}, status=status.HTTP_400_BAD_REQUEST)
