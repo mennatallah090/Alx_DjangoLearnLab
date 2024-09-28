@@ -90,6 +90,9 @@ DATABASES = {
         'PORT':'80',
     }
 }
+import os
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Adjust the path if needed
 
 
 # Password validation
