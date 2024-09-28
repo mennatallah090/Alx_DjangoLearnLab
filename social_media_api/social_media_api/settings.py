@@ -86,7 +86,8 @@ DATABASES = {
         'NAME': 'social_media_api',
         'HOST': 'localhost',
         'USER': 'root',
-        'PASSWORD':'100M^200m@300'
+        'PASSWORD':'100M^200m@300',
+        'PORT':'80',
     }
 }
 
